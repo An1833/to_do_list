@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Avatar, Stack, Tooltip } from '@mui/material';
 
 export default function ButtonAppBar() {
   return (
@@ -20,10 +21,21 @@ export default function ButtonAppBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
-          </Typography>
+
+          <Stack direction={"row"} spacing={2} style={{ flexGrow: 1 }} >
+            <Typography variant="h6" component="div">
+              Todos
+            </Typography>
+            <Typography variant="h6" component="div">
+              About
+            </Typography>
+          </Stack>
+
           <Button color="inherit">Login</Button>
+          <Tooltip title="User">
+            <Avatar src={''}/>
+          </Tooltip>
+          
         </Toolbar>
       </AppBar>
     </Box>
