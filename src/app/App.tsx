@@ -11,12 +11,29 @@ import AppBar from '@mui/material/AppBar';
 import ButtonAppBar from './AppBar.tsx';
 import { Button, Container, InputAdornment, Stack, TextField, Typography } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
+import { useState, type SyntheticEvent } from 'react';
 
 
 
 
 
 function App() {
+
+	const [username, setUsername] = useState ('')
+	const [password, setPassword] = useState ('')
+
+	const handleUserNameChange = (
+		e: SyntheticEvent<HTMLTextAreaElement | HTMLInputElement>,
+	) => {
+		setUsername (e.currentTarget.value)
+	};
+
+	const handlePasswordChange = (
+				e: SyntheticEvent<HTMLTextAreaElement | HTMLInputElement>,
+	) => {
+		setPassword (e.currentTarget.value)
+	};
+	
 
 	return (
 		<>
@@ -26,10 +43,16 @@ function App() {
 			<div style={{marginTop: "100px"}} />
 			
 			<Container maxWidth={"sm"}>
-				<Typography variant='h4' gutterBottom> Login </Typography>
+				<Typography variant='h4' gutterBottom>
+					{''}
+					 Login 
+					{''}
+					 </Typography>
 				<Stack spacing={2}>
 					<TextField
-						onChange={(e)=> console.log(e.target.value)}  
+						value={username}
+						onChange={handleUserNameChange}
+						size='small'  
 						label="email" 
 						variant="filled" 
 						slotProps={{
@@ -42,7 +65,10 @@ function App() {
           					},
         				}}
 					/>
-					<TextField  
+					<TextField
+						value={password} 
+						onChange={handlePasswordChange}
+						size='small'  
 						label="Pasword" 
 						type="password"
 						variant="filled" 
