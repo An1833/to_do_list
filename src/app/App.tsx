@@ -14,7 +14,7 @@ import { AccountCircle } from '@mui/icons-material';
 import { useState, type SyntheticEvent } from 'react';
 
 
-let one = 1
+
 
 
 function App() {
