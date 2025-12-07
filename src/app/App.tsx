@@ -11,7 +11,7 @@ import AppBar from '@mui/material/AppBar';
 
 import ButtonAppBar from './AppBar.tsx';
 import { Button, Container, InputAdornment, Stack, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
-import { AccountCircle } from '@mui/icons-material';
+import { AccountCircle, Email } from '@mui/icons-material';
 import { useState, type SyntheticEvent } from 'react';
 
 
@@ -37,15 +37,39 @@ function App() {
 		setPassword (e.currentTarget.value)
 	};
 	
-	const handeleLogin = () => {
-		console.log ({username, password});
+	const handeleLogin = async () => {
 		setLoading(true);
+		await fetch ("https://todos-be.vercel.app/auth/login", {
+			method: "POST",
+			body: JSON.stringify ({ username, password }),
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+	
 		setTimeout(()=>{
 			setLoading (false)
-		}, 2000)
+		})
 	}
 
-	const handleChange = (
+	const handleRegister  = async () => {
+		setLoading(true);
+		await fetch ("https://todos-be.vercel.app/auth/register", {
+			method: "POST",
+			body: JSON.stringify ({ username, password }),
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+	
+		setTimeout(()=>{
+			setLoading (false)
+		})
+	}
+
+	const handleChange = (	
     	_event: React.MouseEvent<HTMLElement>,
     	newAlignment: string,
   	) => {
@@ -166,7 +190,7 @@ function App() {
 						}}
 					/>
 					<Button 
-						onClick = {handeleLogin} 
+						onClick = {handleRegister} 
 						variant='contained'
 						loadingPosition={"start"} 
 						loading={loading}
