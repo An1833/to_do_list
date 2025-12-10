@@ -13,13 +13,13 @@ import ButtonAppBar from './AppBar.tsx';
 import { Button, Container, InputAdornment, Stack, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 import { AccountCircle, Email } from '@mui/icons-material';
 import { useState, type SyntheticEvent } from 'react';
-
+import { jwtDecode } from "jwt-decode"
 
 
 
 
 function App() {
-	 
+	const [user, setUser] = useState<{access_token: string, username: string} | null>(null);
 	const [username, setUsername] = useState ('');
 	const [password, setPassword] = useState ('');
 	const [loading, setLoading] = useState (false);
@@ -39,19 +39,29 @@ function App() {
 	
 	const handeleLogin = async () => {
 		setLoading(true);
-		await fetch ("https://todos-be.vercel.app/auth/login", {
+		const loginResponse = await fetch ("https://todos-be.vercel.app/auth/login", {
 			method: "POST",
 			body: JSON.stringify ({ username, password }),
 			mode: 'cors',
 			headers: {
 				'Content-Type': 'application/json',
+				},
 			},
-		});
+		);
+			
+
+		const loginData = await loginResponse.json() as {access_token:string, username:string};
+			
+		const accessToken = loginData.access_token;
+		setUser(loginData);
+		console.log (jwtDecode(accessToken));
+
+		localStorage.setItem('accessToken', accessToken);
 	
-		setTimeout(()=>{
-			setLoading (false)
-		})
-	}
+		setLoading (false);
+
+
+	};
 
 	const handleRegister  = async () => {
 		setLoading(true);
@@ -65,9 +75,11 @@ function App() {
 		});
 	
 		setTimeout(()=>{
-			setLoading (false)
+		setLoading (false)
 		})
 	}
+
+
 
 	const handleChange = (	
     	_event: React.MouseEvent<HTMLElement>,
@@ -79,15 +91,12 @@ function App() {
 	return (
 		<>
 			<AppBar/>
-			<ButtonAppBar />
+			<ButtonAppBar
+  				access_token={user?.access_token ?? ''} 
+  				username={user?.username ?? ''}/>
       
 			<div style={{marginTop: "100px"}} />
-			
 
-			
-
-	{/* <Typography variant='h4' gutterBottom>Login</Typography> */}
-	{/* <Typography variant='h4' gutterBottom> Register </Typography> */}
 			
 	<Container maxWidth={"sm"}>
 
