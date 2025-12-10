@@ -19,7 +19,7 @@ import { jwtDecode } from "jwt-decode"
 
 
 function App() {
-	const [user, setUser] = useState <{access_token:string, username:string}|null>(null)> 
+	const [user, setUser] = useState<{access_token: string, username: string} | null>(null);
 	const [username, setUsername] = useState ('');
 	const [password, setPassword] = useState ('');
 	const [loading, setLoading] = useState (false);
@@ -48,14 +48,18 @@ function App() {
 				},
 			},
 		);
+			
 
 		const loginData = await loginResponse.json() as {access_token:string, username:string};
+			
 		const accessToken = loginData.access_token;
+		setUser(loginData);
 		console.log (jwtDecode(accessToken));
 
 		localStorage.setItem('accessToken', accessToken);
 	
-		setLoading (false)
+		setLoading (false);
+
 
 	};
 
@@ -71,7 +75,7 @@ function App() {
 		});
 	
 		setTimeout(()=>{
-			setLoading (false)
+		setLoading (false)
 		})
 	}
 
@@ -87,15 +91,12 @@ function App() {
 	return (
 		<>
 			<AppBar/>
-			<ButtonAppBar />
+			<ButtonAppBar
+  				access_token={user?.access_token ?? ''} 
+  				username={user?.username ?? ''}/>
       
 			<div style={{marginTop: "100px"}} />
-			
 
-			
-
-	{/* <Typography variant='h4' gutterBottom>Login</Typography> */}
-	{/* <Typography variant='h4' gutterBottom> Register </Typography> */}
 			
 	<Container maxWidth={"sm"}>
 

@@ -1,5 +1,3 @@
-// src/app/AppBar.tsx
-
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,7 +10,7 @@ import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import { useColorScheme } from '@mui/material/styles';
 
-// 1️⃣ Стилизованный переключатель (без applyStyles — совместим с любым theme)
+
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
   height: 34,
@@ -56,7 +54,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-// 2️⃣ Компонент переключателя с логикой
+
 const ColorModeToggle = () => {
   const { mode, setMode } = useColorScheme();
 
@@ -78,8 +76,9 @@ const ColorModeToggle = () => {
   );
 };
 
-// 3️⃣ Основной компонент
-export default function ButtonAppBar() {
+export default function ButtonAppBar(props: { access_token: string; username: string }) {
+  const { access_token, username } = props;
+  // console.log('[AppBar] username =', JSON.stringify({username}));
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -103,13 +102,30 @@ export default function ButtonAppBar() {
             </Typography>
           </Stack>
 
-          {/* ✅ Теперь всё работает */}
+
           <ColorModeToggle />
 
-          <Button color="inherit">Login</Button>
-          <Tooltip title="User">
-            <Avatar src="" />
-          </Tooltip>
+              {username && username.trim() ? (
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <Tooltip title={username}>
+                    <Avatar>{username.trim().charAt(0).toUpperCase()}</Avatar>
+                  </Tooltip>
+                  <Typography variant="body2" color="inherit">
+                    {username}
+                  </Typography>
+                </Stack>
+              ) : (
+                <Button color="inherit">Login</Button>
+              )}
+
+
+          {/* {username ? (
+           <Tooltip title={username}>
+            <Avatar src={''} alt={username}/>
+            </Tooltip>
+          ) : (
+            <Button color='inherit'>Login</Button>
+          )} */}
         </Toolbar>
       </AppBar>
     </Box>
