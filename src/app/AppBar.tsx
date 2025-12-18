@@ -76,9 +76,14 @@ const ColorModeToggle = () => {
   );
 };
 
-export default function ButtonAppBar(props: { access_token: string; username: string }) {
-  const { access_token, username } = props;
-  // console.log('[AppBar] username =', JSON.stringify({username}));
+type Props = {
+  access_token?: string; 
+  username?: string 
+}
+
+export default function ButtonAppBar(props: Props) {
+  const {username } = props;
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -94,9 +99,9 @@ export default function ButtonAppBar(props: { access_token: string; username: st
           </IconButton>
 
           <Stack direction="row" spacing={2} sx={{ flexGrow: 1 }}>
-            <Typography variant="h6" component="div" color="inherit">
+            {username && <Typography variant="h6" component="div" color="inherit">
               Todos
-            </Typography>
+            </Typography>}
             <Typography variant="h6" component="div" color="inherit">
               About
             </Typography>
@@ -106,13 +111,13 @@ export default function ButtonAppBar(props: { access_token: string; username: st
           <ColorModeToggle />
 
               {username && username.trim() ? (
-                <Stack direction="row" spacing={1} alignItems="center">
+                <Stack sx={{ ml: '15px' }} direction="row" spacing={1} alignItems="center">
                   <Tooltip title={username}>
-                    <Avatar>{username.trim().charAt(0).toUpperCase()}</Avatar>
+                    <Avatar >{username.trim().charAt(0).toUpperCase()}</Avatar>
                   </Tooltip>
-                  <Typography variant="body2" color="inherit">
+                  {/* <Typography variant="body2" color="inherit">
                     {username}
-                  </Typography>
+                  </Typography> */}
                 </Stack>
               ) : (
                 <Button color="inherit">Login</Button>
