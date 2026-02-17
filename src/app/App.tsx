@@ -3,7 +3,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
  
-import '../../../App.css'
+
 import Auth from '../entities/User/ui/Auth'
 import AppBar from '@mui/material/AppBar';
 import ButtonAppBar from './AppBar.tsx';
