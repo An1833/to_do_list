@@ -63,7 +63,7 @@ const ColorModeToggle = () => {
   };
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', }}>
       <MaterialUISwitch
         checked={mode === 'dark'}
         onChange={handleChange}
@@ -76,13 +76,10 @@ const ColorModeToggle = () => {
   );
 };
 
-type Props = {
-  access_token?: string; 
-  username?: string 
-}
 
-export default function ButtonAppBar(props: Props) {
+export default function ButtonAppBar(props: { access_token: string; username: string }) {
   const {username } = props;
+  // console.log('[AppBar] username =', JSON.stringify({username}));
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -93,7 +90,7 @@ export default function ButtonAppBar(props: Props) {
             edge="start"
             color="inherit"
             aria-label="menu"
-            sx={{ mr: 2 }}
+            sx={{ ml: '15px'}}
           >
             <MenuIcon />
           </IconButton>
