@@ -7,13 +7,18 @@ import '@fontsource/roboto/700.css';
 import { Button, Container, InputAdornment, Stack, TextField, ToggleButton, ToggleButtonGroup} from '@mui/material';
 import { AccountCircle} from '@mui/icons-material';
 
-import { useState, type SyntheticEvent } from 'react';
+import { useState, type SetStateAction, type Dispatch, type SyntheticEvent } from 'react';
 import { jwtDecode } from "jwt-decode"
+import type { UserType } from '../model/userType.ts';
 
 
-const Auth = () => {
+type AuthProps = {
+	setUser: Dispatch<SetStateAction<UserType | null>>
+};
 
-    const [user, setUser] = useState<{access_token: string, username: string} | null>(null);
+const Auth = ({setUser} : AuthProps) => {
+
+    // const [user, setUser] = useState<{access_token: string, username: string} | null>(null);
     const [username, setUsername] = useState ('');
     const [password, setPassword] = useState ('');
     const [loading, setLoading] = useState (false);
@@ -31,7 +36,7 @@ const Auth = () => {
 		setPassword (e.currentTarget.value)
 	};
 	
-	const handeleLogin = async () => {
+	const handleLogin = async () => {
 		setLoading(true);
 		const loginResponse = await fetch ("https://todos-be.vercel.app/auth/login", {
 			method: "POST",
@@ -96,7 +101,7 @@ const Auth = () => {
 		sx={{marginBottom:2}}
 		>
 		<ToggleButton value="login">Login</ToggleButton>
-		<ToggleButton value="regisret">Register</ToggleButton>
+		<ToggleButton value="register">Register</ToggleButton>
 		</ToggleButtonGroup>
 
 
@@ -138,7 +143,7 @@ const Auth = () => {
 						}}
 					/>
 					<Button 
-						onClick = {handeleLogin} 
+						onClick = {handleLogin} 
 						variant='contained'
 						loadingPosition={"start"} 
 						loading={loading}

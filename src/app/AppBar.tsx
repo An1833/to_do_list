@@ -77,8 +77,8 @@ const ColorModeToggle = () => {
 };
 
 
-export default function ButtonAppBar(props: { access_token: string; username: string }) {
-  const {username } = props;
+export default function ButtonAppBar(props: { access_token?: string; username?: string }) {
+  const {username = "" } = props;
   // console.log('[AppBar] username =', JSON.stringify({username}));
 
   return (
