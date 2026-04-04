@@ -16,6 +16,7 @@ import AppBar from './AppBar.tsx';
 // import { AccountCircle, Email } from '@mui/icons-material';
 import { useState } from 'react';
 import type { UserType } from '../entities/User/model/userType.ts'
+import Todos from '../entities/Todo/ui/Todos.tsx';
 // import { jwtDecode } from "jwt-decode"
 
 
@@ -34,7 +35,7 @@ function App() {
 		<>
 			<AppBar username={user ?. username} /> 
 			<div style={{ marginTop: '100px' }} /> 
-			{user ? "" : <Auth setUser={setUser} />}
+			{user ? <Todos/> : <Auth setUser={setUser} />}
 			
 			
 			{/* <AppBar/>
