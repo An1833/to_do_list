@@ -8,11 +8,13 @@ import { mockTodos } from '../model/mockTodos.ts';
 type TodoProps = {
     todo: TodoType
     setTodo: (todo: TodoType) => void;
-}
+};
 
 
-const Todo = ({todo} : TodoProps) => {
-
+const Todo = ({todo, setTodo} : TodoProps) => {
+    const handlecheckClick = () => {
+        setTodo({...todo, completed: !todo.completed });
+    }
     return ( 
     <Card variant="outlined" sx={{maxWidth:250}}>
         <CardContent>
@@ -22,7 +24,10 @@ const Todo = ({todo} : TodoProps) => {
         <Typography variant="body2">{todo.description}</Typography>
         </CardContent>
         <CardActions>
-            <Checkbox checked={todo.completed}></Checkbox> 
+            <Checkbox 
+                checked={todo.completed}
+                onClick={handlecheckClick}
+            /> 
         </CardActions>
     </Card>
     );
@@ -44,7 +49,7 @@ const Todos = () => {
 
     return (
         <Stack flexWrap={'wrap'} spacing={2} direction={'row'}>
-            {mockTodos.map((todo)=>{
+            {todos.map((todo)=>{
             return <Todo todo={todo} key={todo._id} setTodo={setTodo}/>;
             })}
         </Stack>
